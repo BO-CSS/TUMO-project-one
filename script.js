@@ -15,9 +15,9 @@ buttonSubmit.addEventListener("click", (event) => {
   const input = document.getElementById("input-text").value;
   if (input === "") {
     output.innerText = "Enter your text or numbers";
-    return 0;
+    return 0; // if the input is empty no value, will ask you to enter your text or number
   }
-  switch (inputContainer.dataset.action) {  // 
+  switch (inputContainer.dataset.action) {  // with switch statement 
     case "letters":
       let count = countLetters(input); // function countWords doing the count
       output.innerText = `The count of letters ${count}`;
