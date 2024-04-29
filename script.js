@@ -3,6 +3,7 @@ const buttonSubmit = document.querySelector("#submit");
 const footer = document.querySelector("footer");
 const btnLetters = document.querySelector("#button-letters");
 const btnNumbers = document.querySelector("#button-numbers");
+
 const btnWord = document.querySelector("#button-words");
 const btnCapitalLettres = document.querySelector("#button-Cletters");
 const inputContainer = document.querySelector("#input-container");
@@ -70,10 +71,23 @@ function countLetters(text) {
   let removedWhiteSpace = removeWhiteSpace(text);
   let countCharacters = removedWhiteSpace.length;
   return countCharacters;
+=======
+const btnCapitalLettres = document.querySelector("#button-Cletters");
+const btnWords = document.querySelector("#button-words");
+const inputContainer = document.querySelector("#input-container");
+
+// -------------functions-------------//
+function countLetters(text) {
+  let removedWhiteSpace = removeWhiteSpace(text);
+  let countCharacters = removedWhiteSpace;
+  let countLetter = countCharacters ? countCharacters.length : 0;
+  return countLetter;
+
 }
 // function to Extract and count numbers in the text
 function ExtractAndCountNumbers(text) {
   let removedWhiteSpace = removeWhiteSpace(text);
+
   let countNumbers = removedWhiteSpace.match(/\d/gi)
   let countNumber = countNumbers? countNumbers.length:0
   return countNumber;
@@ -89,6 +103,21 @@ function countCapitalLetters(text) {
 
 function countWord(text) {
   let words = text.split(/\s+/);
+  let countNumbers = removedWhiteSpace.match(/\d/gi);
+  let countNumber = countNumbers ? countNumbers.length : 0;
+  return countNumber;
+}
+function countCapitalLetters(text) {
+  let removedWhiteSpace = removeWhiteSpace(text);
+  let findCapitalLetters = removedWhiteSpace.match(/[A-Z]/g);
+  let countNumber = findCapitalLetters ? findCapitalLetters.length : 0;
+
+  return countNumber;
+}
+
+function countWord(text) {
+  let removedWhiteSpace = removeWhiteSpace(text);
+  let words = removedWhiteSpace.split(/\s+/);
   let count = words.length;
 
   return count;
@@ -96,6 +125,67 @@ function countWord(text) {
 function removeWhiteSpace(text) {
   return text.replace(/\s/g, "");
 }
+
+//---------------addEventListener------------------//
+
+btnLetters.addEventListener("click", () => {
+  //addEventlistener on button letters to make the input visible on click
+  inputContainer.style.visibility = "visible";
+});
+buttonSubmit.addEventListener("click", () => {
+  // Targeting the input element and .value property is used to get the current value of an input
+
+  const input = document.getElementById("input-text").value;
+  if (input === "") {
+    result.innerText = "Enter your text";
+    return 0;
+  }
+  let count = countLetters(input); // function countWords doing the count
+  result = document.getElementById("result");
+
+  result.innerText = `The count of letters ${count}`; // To print the result
+});
+btnNumbers.addEventListener("click", () => {
+  inputContainer.style.visibility = "visible";
+  buttonSubmit.addEventListener("click", () => {
+    const inputNumbers = document.getElementById("input-text").value;
+    if (inputNumbers === "") {
+      result.innerText = "Enter your text";
+      return 0;
+    }
+    let countNumbers = ExtractAndCountNumbers(inputNumbers);
+    result.innerText = `The count of Numbers ${countNumbers}`;
+  });
+});
+//----------------Capital letters-------------//
+btnCapitalLettres.addEventListener("click", () => {
+  inputContainer.style.visibility = "visible";
+  buttonSubmit.addEventListener("click", () => {
+    const inputText = document.getElementById("input-text").value;
+    if (inputText === "") {
+      result.innerText = "Enter your text";
+      return 0;
+    }
+    let capitalLetters = countCapitalLetters(inputText);
+    result.innerText = `The count of capital letters are ${capitalLetters}`;
+  });
+});
+//------------------Words--------------------//
+btnWords.addEventListener("click", () => {
+  inputContainer.style.visibility = "visible";
+  buttonSubmit.addEventListener("click", () => {
+    const inputWords = document.getElementById("input-text").value;
+    if (inputWords === "") {
+      result.innerText = "Enter your text";
+      return 0;
+    }
+    let countword = countWord(inputWords);
+    result.innerText = `The count of words in the text ${countword}`;
+  });
+});
+
+//--------------function count only capital letters-----------------------//
+
 
 // footerDate function is to update the date year.
 function footerDate() {
@@ -124,15 +214,7 @@ function reloadPage() {
   }
 }
 
-// document.addEventListener("click", (event) => {
-//   if (
-//     event.target.tagName !== "BUTTON" &&
-//     event.target !== inputContainer &&
-//     event.target !== output
-//   ) {
-//     reloadPage();
-//   }
-// });
+
 
 document.addEventListener("click", (event) => {
   // Prevent reload when clicking inside the inputContainer
